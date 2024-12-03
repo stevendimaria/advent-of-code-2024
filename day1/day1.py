@@ -1,6 +1,6 @@
 from heapq import heappop, heappush
 
-with open('input1.txt') as file:
+with open('input.txt') as file:
     LOCATIONS = [[int(n) for n in line.rstrip().split()] for line in file]
 
 
