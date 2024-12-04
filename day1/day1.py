@@ -1,6 +1,6 @@
 from heapq import heappop, heappush
 
-with open('input.txt') as file:
+with open("input.txt") as file:
     LOCATIONS = [[int(n) for n in line.rstrip().split()] for line in file]
 
 
@@ -28,12 +28,12 @@ def part2():
 
     tot = 0
     for k, v in r_track.items():
-        if (l := l_track.get(k)):
+        if l := l_track.get(k):
             tot += k * v * l
 
     return tot
 
 
-if __name__ == '__main__':
-    print(f'Part 1 : {part1()}')
-    print(f'Part 2 : {part2()}')
+if __name__ == "__main__":
+    print(f"Part 1 : {part1()}")
+    print(f"Part 2 : {part2()}")

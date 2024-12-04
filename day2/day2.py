@@ -1,4 +1,4 @@
-with open('input.txt') as file:
+with open("input.txt") as file:
     REPORTS = [[int(n) for n in line.rstrip().split()] for line in file]
 
 
@@ -16,26 +16,25 @@ def part2(report: list):
         return 1
 
     if report[0] < report[1]:
-        how = 'asc'
+        how = "asc"
     elif report[0] > report[1]:
-        how = 'desc'
+        how = "desc"
     else:
         return 0
 
     for i in range(1, len(report)):
-        if how == 'asc' and 1 <= report[i] - report[i - 1] <= 3:
+        if how == "asc" and 1 <= report[i] - report[i - 1] <= 3:
             continue
-        elif how == 'desc' and 1 <= report[i - 1] - report[i] <= 3:
+        elif how == "desc" and 1 <= report[i - 1] - report[i] <= 3:
             continue
         else:
             return max(
-                part1(report[:i - 1] + report[i:]),
-                part1(report[:i] + report[i + 1:])
+                part1(report[: i - 1] + report[i:]), part1(report[:i] + report[i + 1 :])
             )
     return 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     part_1_ans = 0
     part_2_ans = 0
 
@@ -44,5 +43,5 @@ if __name__ == '__main__':
         if _p1 or part2(_report):
             part_2_ans += 1
 
-    print(f'Part 1 : {part_1_ans}')
-    print(f'Part 2 : {part_2_ans}')
+    print(f"Part 1 : {part_1_ans}")
+    print(f"Part 2 : {part_2_ans}")

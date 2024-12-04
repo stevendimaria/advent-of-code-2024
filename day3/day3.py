@@ -1,8 +1,8 @@
 import re
 
 PATTERN = r"mul\([0-9]+,[0-9]+\)"
-CHARS = ''
-with open('input.txt') as file:
+CHARS = ""
+with open("input.txt") as file:
     for line in file:
         CHARS += line
 
@@ -15,8 +15,8 @@ def part1(find_chars: bool = True, calc: str = None):
 
     ans = 0
     for calc in calcs:
-        first, second = calc.split(',')
-        first = int(first.split('(')[1])
+        first, second = calc.split(",")
+        first = int(first.split("(")[1])
         second = int(second[:-1])
         ans += first * second
 
@@ -24,21 +24,21 @@ def part1(find_chars: bool = True, calc: str = None):
 
 
 def part2():
-    triggers = CHARS.split('do')
+    triggers = CHARS.split("do")
     calcs = []
     for trigger in triggers:
-        if trigger.startswith('()'):
-            calcs.append('ON')
+        if trigger.startswith("()"):
+            calcs.append("ON")
         if trigger.startswith("n't()"):
-            calcs.append('OFF')
+            calcs.append("OFF")
 
         calcs += re.findall(PATTERN, trigger)
 
     ans, flag = 0, True
     for calc in calcs:
-        if calc == 'ON':
+        if calc == "ON":
             flag = True
-        elif calc == 'OFF':
+        elif calc == "OFF":
             flag = False
         elif flag:
             ans += part1(False, calc)
@@ -48,6 +48,6 @@ def part2():
     return ans
 
 
-if __name__ == '__main__':
-    print(f'Part 1 : {part1()}')
-    print(f'Part 2 : {part2()}')
+if __name__ == "__main__":
+    print(f"Part 1 : {part1()}")
+    print(f"Part 2 : {part2()}")
