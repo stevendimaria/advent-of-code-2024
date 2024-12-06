@@ -2,12 +2,6 @@ from collections import deque
 from tqdm import tqdm
 
 
-class Node:
-    def __init__(self, page: str):
-        self.page = page
-        self.children = []
-
-
 with open("input.txt") as file:
     RULES = {"": set()}
     UPDATES = []
