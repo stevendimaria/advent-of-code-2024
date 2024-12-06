@@ -84,77 +84,71 @@ def part2(candidates: set):
         coords, g_dir = candidates.pop()
         r,c = coords
         seen = set()
-        if g_dir == '^':
+        if g_dir == '^'  and r>0 and MAP[r-1][c]!='#':
             seen.add((r-1,c))
-        elif g_dir == 'v':
+            g_dir = '>'
+        elif g_dir == 'v' and r<ROW_LEN-1 and MAP[r+1][c]!='#':
+            g_dir = '<'
             seen.add((r+1, c))
-        elif g_dir == '<':
+        elif g_dir == '<' and c>0 and MAP[r][c-1]!='#':
+            g_dir = '^'
             seen.add((r, c-1))
-        else:
+        elif g_dir == '>' and c < COL_LEN - 1 and MAP[r][c + 1] != '#':
+            g_dir = 'v'
             seen.add((r,c+1))
+        else:
+            continue
         box_test = False
         while not box_test:
             print(seen, g_dir, (r,c), next_barrier.get((r,c)))
-            if g_dir=='^' and r>0 and MAP[r-1][c]!='#':
-                g_dir = '>'
-                if next_barrier.get((r,c)) and next_barrier[(r,c)].get('>'):
-                    print(g_dir, (r,c), next_barrier[(r, c)])
-                    _nxt = next_barrier[(r, c)]['>']
-                    if _nxt in seen:
-                        box_test = True
-                        break
 
-                    _r = next_barrier[(r,c)]['>'][0]
-                    _c = next_barrier[(r, c)]['>'][1]-1
-                    r,c = _r,_c
-                    seen.add(_nxt)
-                else:
+            if g_dir == '>' and next_barrier.get((r,c)) and next_barrier[(r,c)].get('>'):
+                print(g_dir, (r,c), next_barrier[(r, c)])
+                _nxt = next_barrier[(r, c)]['>']
+                if _nxt in seen:
+                    box_test = True
                     break
-            elif g_dir=='>' and c<COL_LEN-1 and MAP[r][c+1]!='#':
-                g_dir = 'v'
-                if next_barrier.get((r,c)) and next_barrier[(r,c)].get('v'):
-                    print(g_dir, (r, c), next_barrier[(r, c)])
-                    _nxt = next_barrier[(r, c)]['v']
-                    if _nxt in seen:
-                        box_test = True
-                        break
 
-                    _r = next_barrier[(r,c)]['v'][0]-1
-                    _c = next_barrier[(r, c)]['v'][1]
-                    r, c = _r, _c
-                    seen.add(_nxt)
-                else:
+                _r = next_barrier[(r,c)]['>'][0]
+                _c = next_barrier[(r, c)]['>'][1]-1
+                r,c = _r,_c
+                seen.add(_nxt)
+            elif g_dir=='v' and next_barrier.get((r,c)) and next_barrier[(r,c)].get('v'):
+                print(g_dir, (r, c), next_barrier[(r, c)])
+                _nxt = next_barrier[(r, c)]['v']
+                if _nxt in seen:
+                    box_test = True
                     break
-            elif g_dir=='<' and c>0 and MAP[r][c-1]!='#':
-                g_dir = '^'
-                if next_barrier.get((r,c)) and next_barrier[(r,c)].get('^'):
-                    print(g_dir, (r, c), next_barrier[(r, c)])
-                    _nxt = next_barrier[(r, c)]['^']
-                    if _nxt in seen:
-                        box_test = True
-                        break
 
-                    _r = next_barrier[(r,c)]['^'][0]+1
-                    _c = next_barrier[(r, c)]['^'][1]
-                    r, c = _r, _c
-                    seen.add(_nxt)
-                else:
-                    break
-            elif g_dir=='v' and r<ROW_LEN-1 and MAP[r+1][c]!='#':
-                g_dir = '<'
-                if next_barrier.get((r,c)) and next_barrier[(r,c)].get('<'):
-                    print(g_dir, (r, c), next_barrier[(r, c)])
-                    _nxt = next_barrier[(r, c)]['<']
-                    if _nxt in seen:
-                        box_test = True
-                        break
+                _r = next_barrier[(r,c)]['v'][0]-1
+                _c = next_barrier[(r, c)]['v'][1]
+                r, c = _r, _c
+                seen.add(_nxt)
 
-                    _r = next_barrier[(r,c)]['<'][0]
-                    _c = next_barrier[(r, c)]['<'][1]+1
-                    r, c = _r, _c
-                    seen.add(_nxt)
-                else:
+            elif g_dir=='^' and next_barrier.get((r,c)) and next_barrier[(r,c)].get('^'):
+                print(g_dir, (r, c), next_barrier[(r, c)])
+                _nxt = next_barrier[(r, c)]['^']
+                if _nxt in seen:
+                    box_test = True
                     break
+
+                _r = next_barrier[(r,c)]['^'][0]+1
+                _c = next_barrier[(r, c)]['^'][1]
+                r, c = _r, _c
+                seen.add(_nxt)
+
+            elif g_dir=='<' and next_barrier.get((r,c)) and next_barrier[(r,c)].get('<'):
+                print(g_dir, (r, c), next_barrier[(r, c)])
+                _nxt = next_barrier[(r, c)]['<']
+                if _nxt in seen:
+                    box_test = True
+                    break
+
+                _r = next_barrier[(r,c)]['<'][0]
+                _c = next_barrier[(r, c)]['<'][1]+1
+                r, c = _r, _c
+                seen.add(_nxt)
+
             else:
                 break
 
