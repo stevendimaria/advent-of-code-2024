@@ -6,29 +6,30 @@ with open("input.txt") as file:
 STARTS = []
 for r in range(len(TOPO_MAP)):
     for c in range(len(TOPO_MAP[0])):
-        if TOPO_MAP[r][c]=='0':
-            STARTS.append((r,c))
+        if TOPO_MAP[r][c] == "0":
+            STARTS.append((r, c))
+
 
 def part1():
     ans = 0
     for row, col in STARTS:
         tot = set()
-        q = deque([((row,col),0)])
+        q = deque([((row, col), 0)])
         while q:
             coords, curr = q.popleft()
-            if curr==9:
+            if curr == 9:
                 tot.add(coords)
                 continue
             r, c = coords
 
-            for _r,_c in [(r-1,c),(r+1,c),(r,c-1),(r,c+1)]:
-                if not 0<=_r<len(TOPO_MAP) or not 0<=_c<len(TOPO_MAP[0]):
+            for _r, _c in [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]:
+                if not 0 <= _r < len(TOPO_MAP) or not 0 <= _c < len(TOPO_MAP[0]):
                     continue
-                if (i := int(TOPO_MAP[_r][_c]))-curr == 1:
-                    q.append(((_r,_c), i))
+                if (i := int(TOPO_MAP[_r][_c])) - curr == 1:
+                    q.append(((_r, _c), i))
         ans += len(tot)
     return ans
 
 
-if __name__=='__main__':
+if __name__ == "__main__":
     print(f"Part 1 : {part1()}")
