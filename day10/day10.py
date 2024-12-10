@@ -25,8 +25,8 @@ def part1(part2=False):
                 continue
             r, c = coords
 
-            for _r, _c in [(r - 1, c),(r + 1, c),(r, c - 1),(r, c + 1)]:
-                if not 0 <=_r< len(TOPO_MAP) or not 0 <=_c< len(TOPO_MAP[0]):
+            for _r, _c in [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]:
+                if not 0 <= _r < len(TOPO_MAP) or not 0 <= _c < len(TOPO_MAP[0]):
                     continue
                 if (i := int(TOPO_MAP[_r][_c])) - curr == 1:
                     q.append(((_r, _c), i))
