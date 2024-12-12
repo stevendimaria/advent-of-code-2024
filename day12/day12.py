@@ -72,13 +72,13 @@ def part2():
 
             if len(missing) > 1:
                 if (row - 1, col) not in v and (row, col + 1) not in v:
-                    ans[k]["out"].add(tuple(sorted([(row - 1, col),(row, col + 1)])))
+                    ans[k]["out"].add(tuple(sorted([(row - 1, col), (row, col + 1)])))
                 if (row + 1, col) not in v and (row, col + 1) not in v:
-                    ans[k]["out"].add(tuple(sorted([(row + 1, col),(row, col + 1)])))
+                    ans[k]["out"].add(tuple(sorted([(row + 1, col), (row, col + 1)])))
                 if (row - 1, col) not in v and (row, col - 1) not in v:
-                    ans[k]["out"].add(tuple(sorted([(row - 1, col),(row, col - 1)])))
+                    ans[k]["out"].add(tuple(sorted([(row - 1, col), (row, col - 1)])))
                 if (row + 1, col) not in v and (row, col - 1) not in v:
-                    ans[k]["out"].add(tuple(sorted([(row + 1, col),(row, col - 1)])))
+                    ans[k]["out"].add(tuple(sorted([(row + 1, col), (row, col - 1)])))
     tot = 0
     for _, v in ans.items():
         sides = len(v["out"]) + sum([v["in"][n] for n in v["in"]])
