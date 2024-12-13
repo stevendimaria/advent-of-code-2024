@@ -59,12 +59,14 @@ def part1(game):
     # return ans
     # ===================================================================
 
+
 def part2():
     ans = 0
-    for k,v in GAMES.items():
-        ans += part1([v[0], v[1], (v[2][0]+10000000000000, v[2][1]+10000000000000)])
+    for k, v in GAMES.items():
+        ans += part1([v[0], v[1], (v[2][0] + 10000000000000, v[2][1] + 10000000000000)])
 
     return ans
+
 
 if __name__ == "__main__":
     part1_ans = 0
@@ -72,4 +74,3 @@ if __name__ == "__main__":
         part1_ans += part1(v)
     print(f"Part 1 : {part1_ans}")
     print(f"Part 2 : {part2()}")
-
