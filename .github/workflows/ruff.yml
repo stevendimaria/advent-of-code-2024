@@ -17,9 +17,13 @@ jobs:
           fi
           echo ${{ steps.check_tree.outputs.dirty }}
 
-      - name: Autoformat and push changes
+      - name: Get tree status
         env:
           IS_DIRTY: ${{ steps.check_tree.outputs.dirty }}
+        run: |
+          echo "Ruff changes made: $IS_DIRTY"
+
+      - name: Autoformat and push changes
         if: ${{ env.IS_DIRTY == 'true' }}
         run: |
           pip install ruff
