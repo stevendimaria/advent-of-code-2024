@@ -15,6 +15,7 @@ jobs:
           else
             echo "{dirty}={0}" >> $GITHUB_ENV
           fi
+          echo "$GITHUB_CONTEXT"
 
       - name: Autoformat and push changes
         if: ${{ env.DIRTY == '1' }}
