@@ -1,16 +1,11 @@
-from collections import deque
 from itertools import groupby
 from tqdm import tqdm
-
-
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
-
 temp_games = []
 for key, group in groupby(INPUT, lambda x: x != ""):
     if key:
         temp_games.append(list(group))
-
 GAMES = {}
 for i, _game in enumerate(temp_games):
     button_a = _game[0].split("A: ")[1].split("+")
@@ -23,7 +18,6 @@ for i, _game in enumerate(temp_games):
     prize = tuple([int(prize[1].split(",")[0]), int(prize[2])])
 
     GAMES[i + 1] = [button_a, button_b, prize]
-
 
 def part1(game):
     x_eq = (game[0][0], game[1][0], game[2][0])
