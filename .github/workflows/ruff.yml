@@ -19,16 +19,13 @@ jobs:
         id: check_tree
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            echo "dirty=true" >> "$GITHUB_ENV"
+            echo "IS_DIRTY=true" >> "$GITHUB_ENV"
           else
-            echo "dirty=false" >> "$GITHUB_OUTPUTENV"
+            echo "IS_DIRTY=false" >> "$GITHUB_ENV"
           fi
 
       - name: Get tree status
-        env:
-          IS_DIRTY: ${{ env.dirty }}
         run: |
-          echo "Ruff changes made: $IS_DIRTY"
           echo "Ruff changes made: ${{ env.IS_DIRTY == 'true' }}"
 
       - name: Commit and push
