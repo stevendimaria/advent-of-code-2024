@@ -1,5 +1,6 @@
 from itertools import groupby
 from tqdm import tqdm
+
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
 temp_games = []
