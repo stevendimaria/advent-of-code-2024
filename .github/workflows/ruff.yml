@@ -4,10 +4,14 @@ jobs:
   ruff-format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: Install ruff
+        run: |
           pip install ruff
+      - name: ruff format
+        run: |
           ruff format
+      - name: Push changes
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
