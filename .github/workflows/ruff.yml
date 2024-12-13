@@ -11,13 +11,13 @@ jobs:
         id: check_tree
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            echo "{dirty}={true}" >> $GITHUB_OUTPUT
+            echo "{dirty}={1}" >> $GITHUB_ENV
           else
-            echo "{dirty}={false}" >> $GITHUB_OUTPUT
+            echo "{dirty}={0}" >> $GITHUB_ENV
           fi
 
       - name: Autoformat and push changes
-        if: ${{ steps.check_tree.outputs.dirty == true }}
+        if: ${{ env.DIRTY == '1' }}
         run: |
           pip install ruff
           ruff format
@@ -28,6 +28,6 @@ jobs:
           git push
 
       - name: No autoformatting done
-        if: steps.check_tree.outputs.dirty != 'true'
+        if: ${{ env.DIRTY != '1' }}
         run: |
           echo "Working tree is clean, autoformat not required."
