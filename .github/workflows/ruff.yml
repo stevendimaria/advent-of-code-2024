@@ -11,13 +11,13 @@ jobs:
         id: check_tree
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            echo "{dirty}={true}" >> $IS_DIRTY
+            echo "{dirty}={true}" >> $GITHUB_OUTPUT
           else
-            echo "{dirty}={false}" >> $IS_DIRTY
+            echo "{dirty}={false}" >> $GITHUB_OUTPUT
           fi
 
       - name: Autoformat and push changes
-        if: ${{ env.IS_DIRTY == true }}
+        if: ${{ env.GITHUB_OUTPUT == true }}
         run: |
           pip install ruff
           ruff format
