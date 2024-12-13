@@ -4,7 +4,7 @@ from tqdm import tqdm
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
 
-GAMES, temp_games = [],[]
+GAMES, temp_games = [], []
 for key, group in groupby(INPUT, lambda x: x != ""):
     if key:
         temp_games.append(list(group))
