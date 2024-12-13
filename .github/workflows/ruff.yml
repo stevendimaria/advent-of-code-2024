@@ -1,23 +1,18 @@
 name: Ruff
 on: [push, pull_request]
 jobs:
-  config-ruff:
+  ruff-format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: |
           pip install ruff
           ruff format
-  ruff-format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: "ruff format"
   push-changes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run:
+      - run: |
           git add .
           git commit -m "GHA ruff formatted"
           git push
