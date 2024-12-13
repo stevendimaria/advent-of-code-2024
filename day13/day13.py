@@ -1,13 +1,13 @@
 from itertools import groupby
 from tqdm import tqdm
+
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
-temp_games = []
+
+GAMES, temp_games = [],[]
 for key, group in groupby(INPUT, lambda x: x != ""):
     if key:
         temp_games.append(list(group))
-
-GAMES = []
 for i, _game in enumerate(temp_games):
     button_a = _game[0].split("A: ")[1].split("+")
     button_a = tuple([int(button_a[1].split(",")[0]), int(button_a[2])])

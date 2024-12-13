@@ -37,8 +37,6 @@ jobs:
           git push
 
       - name: No autoformatting done
-        env:
-          IS_DIRTY: ${{ steps.check_tree.outputs.dirty }}
         if: ${{ env.IS_DIRTY != 'true' }}
         run: |
           echo "Working tree is clean, autoformat not required."
