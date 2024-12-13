@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Autoformat and push changes
-      - run: |
+        run: |
           pip install ruff
           ruff format
           git config user.name github-actions
