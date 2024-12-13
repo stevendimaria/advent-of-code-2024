@@ -2,7 +2,6 @@ from itertools import groupby
 from tqdm import tqdm
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
-
 temp_games = []
 for key, group in groupby(INPUT, lambda x: x != ""):
     if key:

@@ -4,8 +4,20 @@ jobs:
   ruff-format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check for ruff changes
+        id: check_tree
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::set-output name=dirty::true"
+          else
+            echo "::set-output name=dirty::false"
+          fi
+
       - name: Autoformat and push changes
+        if: steps.check_tree.outputs.dirty == 'true'
         run: |
           pip install ruff
           ruff format
@@ -14,3 +26,8 @@ jobs:
           git add .
           git commit -m "GHA ruff formatted"
           git push
+
+      - name: No autoformatting done
+        if: steps.check_tree.outputs.dirty != 'true'
+        run: |
+          echo "Working tree is clean, autoformat not required."
