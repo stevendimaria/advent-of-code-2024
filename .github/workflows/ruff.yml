@@ -20,7 +20,7 @@ jobs:
       - name: Autoformat and push changes
         env:
           IS_DIRTY: ${{ steps.check_tree.outputs.dirty }}
-        if: env.IS_DIRTY == 'true'
+        if: ${{ env.IS_DIRTY == 'true' }}
         run: |
           pip install ruff
           ruff format
@@ -33,6 +33,6 @@ jobs:
       - name: No autoformatting done
         env:
           IS_DIRTY: ${{ steps.check_tree.outputs.dirty }}
-        if: env.IS_DIRTY != 'true'
+        if: ${{ env.IS_DIRTY != 'true' }}
         run: |
           echo "Working tree is clean, autoformat not required."
