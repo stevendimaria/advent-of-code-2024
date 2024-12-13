@@ -8,7 +8,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Autoformat
-        if: ${{ env.IS_DIRTY == 'true' }}
         run: |
           pip install ruff
           ruff format
@@ -32,7 +31,7 @@ jobs:
           echo "Ruff changes made: $IS_DIRTY"
 
       - name: Commit and push
-        if: ${{ env.IS_DIRTY != 'true' }}
+        if: ${{ env.IS_DIRTY == 'true' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
