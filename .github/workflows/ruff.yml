@@ -17,7 +17,7 @@ jobs:
           fi
 
       - name: Autoformat and push changes
-        if: ${{ env.GITHUB_OUTPUT == true }}
+        if: ${{ steps.check_tree.outputs.dirty == true }}
         run: |
           pip install ruff
           ruff format
