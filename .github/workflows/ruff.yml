@@ -15,7 +15,7 @@ jobs:
           else
             echo "dirty=false" >> "$GITHUB_OUTPUT"
           fi
-          echo "$GITHUB_CONTEXT"
+          echo ${{ steps.check_tree.outputs.dirty }}
 
       - name: Autoformat and push changes
         env:
