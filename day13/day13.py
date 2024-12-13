@@ -3,11 +3,13 @@ from tqdm import tqdm
 
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
+
 temp_games = []
 for key, group in groupby(INPUT, lambda x: x != ""):
     if key:
         temp_games.append(list(group))
-GAMES = {}
+
+GAMES = []
 for i, _game in enumerate(temp_games):
     button_a = _game[0].split("A: ")[1].split("+")
     button_a = tuple([int(button_a[1].split(",")[0]), int(button_a[2])])
@@ -18,7 +20,7 @@ for i, _game in enumerate(temp_games):
     prize = _game[2].split("Prize: ")[1].split("=")
     prize = tuple([int(prize[1].split(",")[0]), int(prize[2])])
 
-    GAMES[i + 1] = [button_a, button_b, prize]
+    GAMES.append([button_a, button_b, prize])
 
 
 def part1(game):
@@ -58,15 +60,15 @@ def part1(game):
 
 def part2():
     ans = 0
-    for k, v in GAMES.items():
-        ans += part1([v[0], v[1], (v[2][0] + 10000000000000, v[2][1] + 10000000000000)])
+    for g in GAMES:
+        ans += part1([g[0], g[1], (g[2][0] + 10000000000000, g[2][1] + 10000000000000)])
 
     return ans
 
 
 if __name__ == "__main__":
     part1_ans = 0
-    for _, v in tqdm(GAMES.items()):
-        part1_ans += part1(v)
+    for game in tqdm(GAMES):
+        part1_ans += part1(game)
     print(f"Part 1 : {part1_ans}")
     print(f"Part 2 : {part2()}")
