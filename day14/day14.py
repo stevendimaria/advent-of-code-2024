@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 
 with open("input.txt", "r") as file:
-    INPUT = file.read().split("\n")[:-1]
+    INPUT = file.read().split("\n")
 
 MAP = []
 for r in range(103):
@@ -46,39 +46,32 @@ def part1(robots, _map, seconds, part=1):
 
         return prod(quadrants)
 
-    all_safety_factors = []
     for sec in tqdm(range(seconds)):
         for k, v in robots.items():
             pos, vel = v['pos'], v['vel']
 
             x, y = pos
-            #########
-            if part==2:
-                _map[y][x] -= 1
-            #########
-            x += vel[0]
-            y += vel[1]
-
-            x = x%101 if 0<=x else x+101
-            y = y%103 if 0<=y else y+103
-
-            #########
-            if part==2:
-                _map[y][x] += 1
-                sf = calc_safety_factor()
-                all_safety_factors.append((sec, sf))
-                if sf<100000000:
-                    print(sec)
-                    f = open('part2.txt', 'a')
-                    f.write(f"{sec}\n")
-                    for line in _map:
-                        f.write(f"{line}\n")
-                    f.close()
-            #########
+            _map[y][x] -= 1
+            x = (x+vel[0])%101
+            y = (y+vel[1])%103
 
             robots[k]['pos'] = (x, y)
+            _map[y][x] += 1
 
-    print(sorted(all_safety_factors)[:20])
+        #########
+        if part == 2:
+            sf = calc_safety_factor()
+            if sf < 200000000:
+                print(sf, sec)
+                f = open('part2.txt', 'a')
+                f.write(f"{sec}\n")
+                for line in _map:
+                    line = ['.' if n == 0 else '*' for n in line]
+                    f.write(f"{''.join(line)}\n")
+                f.write(f"\n")
+                f.close()
+        #########
+
     return calc_safety_factor()
 
 
