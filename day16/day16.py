@@ -54,7 +54,7 @@ def part1():
 
 def part2(part1_ans):
     pq = []
-    heappush(pq, (0, START[0], START[1], '>', []))
+    heappush(pq, (0, START[0], START[1], '>', set()))
 
     part2_ans, seen, best = set(), {}, 999999999
     while pq:
@@ -69,11 +69,11 @@ def part2(part1_ans):
         else:
             seen[(r,c,d)] = score
 
-        next_path = path+[(r,c,d)]
+        next_path = path|{(r, c, d)}
         if (r, c) == END:
             best = min(score, best)
             if score==part1_ans:
-                part2_ans |= set([(r,c) for r,c,_ in next_path])
+                part2_ans |= next_path
             continue
 
         for next_d in ['<','>','^','v']:
@@ -89,7 +89,11 @@ def part2(part1_ans):
             if d in {'>', '<'} and next_d in {'^', 'v'}:
                 heappush(pq, (score + 1001, next_r, next_c, next_d, next_path))
 
-    return len(part2_ans)
+    coords = set()
+    while part2_ans:
+        r,c,_ = part2_ans.pop()
+        coords.add((r,c))
+    return len(coords)
 
 
 if __name__=='__main__':
