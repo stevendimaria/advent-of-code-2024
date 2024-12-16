@@ -1,4 +1,3 @@
-from collections import deque
 from heapq import heappush, heappop
 
 with open("input.txt", "r") as file:
@@ -27,17 +26,17 @@ def part1():
     pq = []
     heappush(pq, (0, START[0], START[1], '>'))
 
-    seen = set()
+    seen, ans = set(), 9999999999
     while pq:
         score, r, c, d = heappop(pq)
 
         if (r, c, d) in seen:
             continue
         seen.add((r, c, d))
-        if MAZE[r][c]=='#':
-            continue
 
-        if (r,c)==END:
+        if MAZE[r][c] == "#" or score >= ans:
+            continue
+        if (r, c) == END:
             return score
 
         heappush(pq, (score+1, r+MOVESET[d]['r'], c+MOVESET[d]['c'], d))
