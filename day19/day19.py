@@ -9,7 +9,7 @@ TOWELS = INPUT.pop(0)
 
 def part1():
     towels = {}
-    for towel in TOWELS.split(','):
+    for towel in TOWELS.split(","):
         towel = towel.strip()
         if not towels.get(len(towel)):
             towels[len(towel)] = set()
@@ -17,7 +17,7 @@ def part1():
 
     ans = 0
     for pattern in INPUT[1:]:
-        q = deque([('', pattern)])
+        q = deque([("", pattern)])
         seen = set()
         while q:
             curr, rem = q.popleft()
@@ -28,7 +28,7 @@ def part1():
 
             if curr and not towels.get(len(curr)):
                 towels[len(curr)] = set()
-            if not rem or not set(pattern)-towels.get(1, set()):
+            if not rem or not set(pattern) - towels.get(1, set()):
                 ans += 1
                 if curr:
                     towels[len(curr)].add(curr)
@@ -37,9 +37,9 @@ def part1():
                 towels[len(pattern)].add(pattern)
                 break
 
-            for k,v in towels.items():
+            for k, v in towels.items():
                 if rem[:k] in v:
-                    q.append((curr+rem[:k], rem[k:]))
+                    q.append((curr + rem[:k], rem[k:]))
 
             if curr:
                 towels[len(curr)].add(curr)
@@ -53,10 +53,10 @@ def part2(pattern, cache={}):
         return 1
 
     ans = 0
-    for towel in TOWELS.split(','):
+    for towel in TOWELS.split(","):
         towel = towel.strip()
         if pattern.startswith(towel):
-            ans += part2(pattern[len(towel):], cache)
+            ans += part2(pattern[len(towel) :], cache)
     cache[pattern] = ans
 
     return ans
