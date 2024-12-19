@@ -4,17 +4,19 @@ from tqdm import tqdm
 
 with open("input.txt", "r") as file:
     INPUT = file.read().split("\n")
+TOWELS = INPUT.pop(0)
+
 
 def part1():
     towels = {}
-    for towel in INPUT.pop(0).split(','):
+    for towel in TOWELS.split(','):
         towel = towel.strip()
         if not towels.get(len(towel)):
             towels[len(towel)] = set()
         towels[len(towel)].add(towel)
 
     ans = 0
-    for pattern in tqdm(INPUT[1:]):
+    for pattern in INPUT[1:]:
         q = deque([('', pattern)])
         seen = set()
         while q:
@@ -44,6 +46,26 @@ def part1():
     return ans
 
 
+def part2(pattern, cache={}):
+    if cache.get(pattern):
+        return cache[pattern]
+    if not pattern:
+        return 1
+
+    ans = 0
+    for towel in TOWELS.split(','):
+        towel = towel.strip()
+        if pattern.startswith(towel):
+            ans += part2(pattern[len(towel):], cache)
+    cache[pattern] = ans
+
+    return ans
+
+
 if __name__ == "__main__":
     print(f"Part 1 : {part1()}")
-    # print(f"Part 2 : {part2()}")
+
+    tot = 0
+    for pattern in tqdm(INPUT[1:]):
+        tot += part2(pattern)
+    print(f"Part 2 : {tot}")
